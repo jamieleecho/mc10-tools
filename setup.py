@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+import setuptools
+
+VERSION = '0.0.0'
+
+with open('README.md', 'r', encoding='utf-8') as fh:
+    long_description = fh.read()
+
+setuptools.setup(
+    name='coco-tools-jamieleecho',
+    version=VERSION,
+    author='Jamie Cho',
+    author_email='jamieleecho@gmail.com',
+    description='Set of MC-10 tools',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    url='https://github.com/jamieleecho/mc10-tools',
+    packages=setuptools.find_packages(where='./mc10/'),
+    package_dir={
+        '': 'mc10',
+    },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    install_requires=[
+        'click >= 7.1.2',
+    ],
+    python_requires='>=3.6',
+    entry_points={
+        'console_scripts': ['c10tobas=mc10.c10tobas:c10tobas'],
+    },
+)

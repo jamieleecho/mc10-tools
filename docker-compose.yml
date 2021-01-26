@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  test:
+    build: .
+    command: bash -c "
+        pycodestyle mc10 tests setup.py
+        && pytest --cov=mc10"
+
+  testv:
+    build: .
+    command: bash -c "
+        pycodestyle mc10 tests setup.py
+        && pytest --cov=mc10"
+    volumes:
+    -  .:/root/mc10-tools
+
+  bash:
+    build: .
+    command: bash
+
+  bashv:
+    build: .
+    command: bash
+    volumes:
+    -  .:/root/mc10-tools
+
