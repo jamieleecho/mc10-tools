@@ -16,7 +16,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/jamieleecho/mc10-tools',
-    packages=setuptools.find_packages(where='./mc10/'),
+    packages=setuptools.find_packages(where='./mc10'),
     package_dir={
         '': 'mc10',
     },
