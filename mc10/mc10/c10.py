@@ -1,294 +1,3 @@
-BASIC_KEYWORDS = [
-    # 0x00 - 0x0f
-    b'',  # EOL
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-
-    # 0x10 - 0x1f
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-
-    # 0x20 - 0x2f
-    b' ',
-    b'!',
-    b'"',
-    b'#',
-    b'$',
-    b'%',
-    b'&',
-    b'\'',
-    b'(',
-    b')',
-    b'*',
-    b'+',
-    b',',
-    b'-',
-    b'.',
-    b'/',
-
-    # 0x30 - 0x3f
-    b'0',
-    b'1',
-    b'2',
-    b'3',
-    b'4',
-    b'5',
-    b'6',
-    b'7',
-    b'8',
-    b'9',
-    b':',
-    b';',
-    b'<',
-    b'=',
-    b'>',
-    b'?',
-
-    # 0x40 - 0x4f
-    b'@',
-    b'A',
-    b'B',
-    b'C',
-    b'D',
-    b'E',
-    b'F',
-    b'G',
-    b'H',
-    b'I',
-    b'J',
-    b'K',
-    b'L',
-    b'M',
-    b'N',
-    b'O',
-
-    # 0x50 - 0x5f
-    b'P',
-    b'Q',
-    b'R',
-    b'S',
-    b'T',
-    b'U',
-    b'V',
-    b'W',
-    b'X',
-    b'Y',
-    b'Z',
-    b'[',
-    b'\\',
-    b']',
-    b'^',
-    b'_',
-
-    # 0x60 - 0x6f
-    b'`',
-    b'a',
-    b'b',
-    b'c',
-    b'd',
-    b'e',
-    b'f',
-    b'g',
-    b'h',
-    b'i',
-    b'j',
-    b'k',
-    b'l',
-    b'm',
-    b'n',
-    b'o',
-
-    # 0x70 - 0x7f
-    b'p',
-    b'q',
-    b'r',
-    b's',
-    b't',
-    b'u',
-    b'v',
-    b'w',
-    b'x',
-    b'y',
-    b'z',
-    b'{',
-    b'|',
-    b'}',
-    b'~',
-    b'\x7f',
-
-    # 0x80 - 0x8f
-    b'FOR',
-    b'GOTO',
-    b'GOSUB',
-    b'REM',
-    b'IF',
-    b'DATA',
-    b'PRINT',
-    b'ON',
-    b'INPUT',
-    b'END',
-    b'NEXT',
-    b'DIM',
-    b'READ',
-    b'LET',
-    b'RUN',
-    b'RESTORE',
-
-    # 0x90 - 0x9f
-    b'RETURN',
-    b'STOP',
-    b'POKE',
-    b'CONT',
-    b'LIST',
-    b'CLEAR',
-    b'NEW',
-    b'CLOAD',
-    b'CSAVE',
-    b'LLIST',
-    b'LPRINT',
-    b'SET',
-    b'RESET',
-    b'CLS',
-    b'SOUND',
-    b'!',
-
-    # 0xa0 - 0xaf
-    b'SKIPF',
-    b'TAB(',
-    b'TO',
-    b'THEN',
-    b'!',
-    b'STEP',
-    b'!',
-    b'!',
-    b'=',
-    b'*',
-    b'!',
-    b'^',
-    b'!',
-    b'!',
-    b'!',
-    b'=',
-
-    # 0xb0 - 0xbf
-    b'!',
-    b'SGN',
-    b'INT',
-    b'ABS',
-    b'!',
-    b'RND',
-    b'SQR',
-    b'LOG',
-    b'EXP',
-    b'SIN',
-    b'COS',
-    b'TAN',
-    b'PEEK',
-    b'LEN',
-    b'STR',
-    b'VAL',
-
-    # 0xc0 - 0xcf
-    b'ASC',
-    b'CHR$',
-    b'LEFT$',
-    b'RIGHT$',
-    b'MID$',
-    b'POINT',
-    b'!',
-    b'INKEY$',
-    b'MEM',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-
-    # 0xd0 - 0xdf
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-
-    # 0xe0 - 0xef
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-
-    # 0xf0 - 0xff
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!',
-    b'!'
-]
-
-
 class C10Data:
     def __init__(self, filename, start_addr, load_addr, data, filetype,
                  binary_mode, continuous_gap_flag):
@@ -332,11 +41,11 @@ class C10Data:
 def c10_path_to_data(path):
     """Given a C10 file path, returns a C10Data object"""
     with open(path, 'rb') as f:
-        return c10_data_to_data(f.read())
+        return c10_file_to_data(f.read())
 
 
-def c10_data_to_data(data):
-    """Given C10 data as a binary strong, returns a C10Data object"""
+def c10_file_to_data(data):
+    """Given C10 data as a binary string, returns a C10Data object"""
     # strip initial leader
     ii = 0
     (ii, block_data, block_type) = skip_leader(data, ii)
@@ -445,88 +154,91 @@ def parse_initial_block_data(block_data):
             load_addr)
 
 
-def c10data_to_bas(c10data):
-    """Given a C10Data Object, returns a bstring containing the equivalent
-    BASIC program"""
-    if c10data.filetype != 0:
-        raise Exception(f'{c10data.filename} has a filetype of'
-                        f'{c10data.filetype}, expected 0')
-    if c10data.binary_mode != 0:
-        raise Exception(f'{c10data.filename} has a binary_mode of'
-                        f'{c10data.binary_mode}, expected 0')
-    if c10data.binary_mode != 0:
-        raise Exception(f'{c10data.filename} has a continuous_gap_mode of'
-                        f'{c10data.continuous_gap_mode}, expected 0')
+def c10data_to_c10file(c10data):
+    """Creates the corresponding c10 file based on the c10data block"""
+    output = bytearray()
 
-    program = {}  # map a line number to the line
+    # Generate all of the initial header stuff
+    output += generate_initial_leader()
+    output += generate_initial_block_data(c10data)
+    output += generate_secondary_leader()
+
+    # Generate normal block
     ii = 0
     while ii < len(c10data.data):
-        # Ignore the next line pointer unless it is 0x00
-        if ii + 2 > len(c10data.data):
-            raise EOFError(f'Found EOF while scanning for line number at {ii}')
-        if c10data.data[ii] == 0x00 and c10data.data[ii + 1] == 0x00:
-            break
-        ii = ii + 2
+        (block_data, ii) = generate_block_data(c10data.data, ii, 1)
+        output += block_data
+        if (ii < len(c10data.data)):
+            output += generate_interblock_leader()
 
-        # Get the line number
-        if ii + 2 > len(c10data.data):
-            raise EOFError(f'Found EOF while scanning for line number at {ii}')
-        line_number = (c10data.data[ii] << 8) + c10data.data[ii + 1]
-        line = bytes(str(line_number), 'iso-8859-1')
-        line += b' '
-        ii = ii + 2
+    # Generate the final block
+    output += generate_final_block_leader()
+    output += generate_block_data(bytearray(), 0, 0xff)[0]
+    output += b'\xff'
+    padding = (((len(output) + 4095) // 4096) * 4096) - len(output)
+    output += b'\0' * padding
 
-        # Extract all of the tokens from the line
-        while ii < len(c10data.data) and c10data.data[ii] != 0x00:
-            char = c10data.data[ii]
-            if char == 0x22:
-                (strlit, ii) = parse_string_literal(c10data.data, ii)
-                line += strlit
-            else:
-                line += token_to_keyword(c10data.data[ii])
-                ii = ii + 1
-
-        # Did we find the EOL character?
-        if ii >= len(c10data.data):
-            raise EOFError(f'Found EOF while scanning for EOL at {ii}')
-        ii = ii + 1
-
-        # Update the program
-        program[line_number] = line
-
-    # make sure the output is ordered
-    ordered_program = (
-      program[line_number] for line_number in sorted(program.keys()))
-
-    return b'\n'.join(ordered_program)
+    return output
 
 
-def token_to_keyword(token):
-    return BASIC_KEYWORDS[token]
+def generate_initial_leader():
+    """Generates the initial leader that starts all c10 files"""
+    return b'\x55' * 0x80
 
 
-def parse_string_literal(data, index):
-    """parses the string literal whose first douvle quote starts at index,
-    returning (strilit, new_index) where strlit is the string literal
-    including the starting and trailing double quote if there is one.
-    new_index points to the char after the end of the string literal"""
-    if index >= len(data):
-        raise EOFError(
-          f'Found EOF while scanning for string literal at {index}')
-    if data[index] != 0x22:
-        raise EOFError(f'Found {data[index]} at {index}, expected 0x22')
-    index = index + 1
+def generate_initial_block_data(c10data):
+    """Generates the first block leader that starts all c10 files"""
 
-    # Extract all of the tokens from the line
-    strlit = b'"'
-    while index < len(data) and data[index] != 0x00 and data[index] != 0x22:
-        strlit += bytes((data[index],))
-        index = index + 1
+    # put in the filename, make sure it is exactly 8 bytes
+    initial_block = bytearray()
+    initial_block += c10data.filename
+    if len(initial_block) > 8:
+        initial_block = initial_block[0:8]
+    elif len(initial_block) < 8:
+        initial_block += b'\0' * (8 - len(initial_block))
+    filename = c10data.data[0:8]
 
-    if index >= len(data):
-        raise EOFError(
-          f'Found EOF while scanning for end of string literal at {index}')
-    if data[index] == 0x00:
-        return strlit, index
-    strlit += b'"'
-    return strlit, index + 1
+    # put in different file flags
+    initial_block.append(c10data.filetype)
+    initial_block.append(c10data.binary_mode)
+    initial_block.append(c10data.continuous_gap_flag)
+
+    # put in the start and load addresses
+    initial_block.append((c10data.start_addr >> 8) & 0xff)
+    initial_block.append(c10data.start_addr & 0xff)
+    initial_block.append((c10data.load_addr >> 8) & 0xff)
+    initial_block.append(c10data.load_addr & 0xff)
+
+    return generate_block_data(initial_block, 0, 0)[0]
+
+
+def generate_secondary_leader():
+    """Generates the secondary leader after the initial c10 block"""
+    return b'\x55' * 0x81
+
+
+def generate_block_data(data, index, blocktype):
+    """Generates the largest block possible starting at index in data.
+    returns (output, new_index) where output is the generated block and
+    new_index points to where the next block in data would be extracted"""
+    output = bytearray()
+    output += b'\x3c'
+    output.append(blocktype)
+    sz = len(data) - index
+    if (sz > 0xff):
+        sz = 0xff
+    output.append(sz)
+    output += data[index:index + sz]
+    checksum = sum(output[1:]) & 0xff
+    output.append(checksum)
+    return (output, index + len(data))
+
+
+def generate_interblock_leader():
+    """Generates the leader between normal blocks"""
+    return b'\x55' * 0x2
+
+
+def generate_final_block_leader():
+    """Generates the leader between the last normal block and the end block"""
+    return b'\x55' * 0x3

@@ -16,6 +16,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+      - name: set pythonpath
+        run: |
+          echo "PYTHONPATH=`pwd`/mc10" >> $GITHUB_ENV
       - name: Run tests
         run: |
           python setup.py install
