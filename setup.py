@@ -9,7 +9,7 @@ with open('README.md', 'r', encoding='utf-8') as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name='coco-tools-jamieleecho',
+    name='mc10-tools-jamieleecho',
     version=VERSION,
     author='Jamie Cho',
     author_email='jamieleecho@gmail.com',
