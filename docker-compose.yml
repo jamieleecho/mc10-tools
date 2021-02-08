@@ -5,13 +5,13 @@ services:
     build: .
     command: bash -c "
         pycodestyle mc10 tests setup.py
-        && pytest --cov=mc10"
+        && pytest --cov=mc10 tests"
 
   testv:
     build: .
     command: bash -c "
         pycodestyle mc10 tests setup.py
-        && pytest --cov=mc10"
+        && pytest --cov=mc10 tests"
     volumes:
     -  .:/root/mc10-tools
 

@@ -1,92 +1,7 @@
-import os
 import pytest
-
 from mc10 import c10
 
-
-@pytest.fixture
-def filename_block():
-    return bytes([0x3c, 0x00, 0x0f, 0x42, 0x4c, 0x4f, 0x52, 0x4b, 0x00,
-                  0x00, 0x00, 0x00, 0x00, 0x00, 0x43, 0x46, 0x43, 0x46,
-                  0x9b])
-
-
-@pytest.fixture
-def filename_block_bad_checksum():
-    return bytes([0x3c, 0x00, 0x0f, 0x42, 0x4c, 0x4f, 0x52, 0x4b, 0x00,
-                  0x00, 0x00, 0x00, 0x00, 0x00, 0x43, 0x46, 0x43, 0x46,
-                  0x9c])
-
-
-@pytest.fixture
-def filename_block_no_checksum():
-    return bytes([0x3c, 0x00, 0x0f, 0x42, 0x4c, 0x4f, 0x52, 0x4b, 0x00,
-                  0x00, 0x00, 0x00, 0x00, 0x00, 0x43, 0x46, 0x43, 0x46])
-
-
-@pytest.fixture
-def filename_block_bad_block_header():
-    return bytes([0xc3, 0x00, 0x0f, 0x42, 0x4c, 0x4f, 0x52, 0x4b, 0x00,
-                  0x00, 0x00, 0x00, 0x00, 0x00, 0x43, 0x46, 0x43, 0x46,
-                  0x9c])
-
-
-@pytest.fixture
-def filename_block_data():
-    return bytes([0x42, 0x4c, 0x4f, 0x52, 0x4b, 0x00, 0x00, 0x00, 0x01,
-                  0x02, 0x03, 0x01, 0x23, 0x45, 0x67])
-
-
-@pytest.fixture
-def filename_block_data_no_filename():
-    return bytes([0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,
-                  0x02, 0x03, 0x01, 0x23, 0x45, 0x67])
-
-
-def resource_path():
-    return os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        'resources')
-
-
-def basic_c10_path():
-    return os.path.join(resource_path(), 'blork.c10')
-
-
-def basic_c10_data_path():
-    return os.path.join(resource_path(), 'blork_data.bin')
-
-
-@pytest.fixture
-def basic_c10_file():
-    with open(basic_c10_path(), 'rb') as f:
-        return f.read()
-
-
-@pytest.fixture
-def all_keywords_file():
-    with open(os.path.join(resource_path(), 'all-keywords.c10'),
-              'rb') as f:
-        return f.read()
-
-
-@pytest.fixture
-def basic_c10_file_bad_initial_block():
-    with open(os.path.join(resource_path(), 'blork_bad_initial_block.c10'),
-              'rb') as f:
-        return f.read()
-
-
-@pytest.fixture
-def basic_c10_file_bad_block():
-    with open(os.path.join(resource_path(), 'blork_bad_block.c10'),
-              'rb') as f:
-        return f.read()
-
-
-@pytest.fixture
-def basic_c10_data():
-    with open(basic_c10_data_path(), 'rb') as f:
-        return f.read()
+import conftest
 
 
 def test_c10data():
@@ -186,8 +101,8 @@ def test_parse_initial_block_data_no_filename(
     assert str(err.value) == 'No filename specified'
 
 
-def test_c10_data_to_data(basic_c10_file, basic_c10_data):
-    data = c10.c10_data_to_data(basic_c10_file)
+def test_c10_file_to_data(basic_c10_file, basic_c10_data):
+    data = c10.c10_file_to_data(basic_c10_file)
     assert data.filename == b'BLORK'
     assert data.start_addr == 0x4346
     assert data.load_addr == 0x4346
@@ -198,7 +113,7 @@ def test_c10_data_to_data(basic_c10_file, basic_c10_data):
 
 
 def test_c10_path_to_data(basic_c10_data):
-    data = c10.c10_path_to_data(basic_c10_path())
+    data = c10.c10_path_to_data(conftest.basic_c10_path())
     assert data.filename == b'BLORK'
     assert data.start_addr == 0x4346
     assert data.load_addr == 0x4346
@@ -208,21 +123,15 @@ def test_c10_path_to_data(basic_c10_data):
     assert data.data == basic_c10_data
 
 
-def test_c10_data_to_data_bad_initial_block(basic_c10_file_bad_initial_block):
+def test_c10_file_to_data_bad_initial_block(basic_c10_file_bad_initial_block):
     with pytest.raises(Exception) as err:
-        c10.c10_data_to_data(basic_c10_file_bad_initial_block)
+        c10.c10_file_to_data(basic_c10_file_bad_initial_block)
     assert str(err.value) == 'Unexpected block type 5 (expected 0) found at ' \
                              '133'
 
 
-def test_c10_data_to_data_bad_block(basic_c10_file_bad_block):
+def test_c10_file_to_data_bad_block(basic_c10_file_bad_block):
     with pytest.raises(Exception) as err:
-        c10.c10_data_to_data(basic_c10_file_bad_block)
+        c10.c10_file_to_data(basic_c10_file_bad_block)
     assert str(err.value) == 'Unexpected block type 7 (expected 1) found at ' \
                              '803'
-
-
-def test_c10data_to_program(all_keywords_file):
-    data = c10.c10_data_to_data(all_keywords_file)
-    program = c10.c10data_to_bas(data)
-    print(program)

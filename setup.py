@@ -2,6 +2,7 @@
 
 import setuptools
 
+# VERSION MUST be defined on line 6
 VERSION = '0.1'
 
 with open('README.md', 'r', encoding='utf-8') as fh:
@@ -27,9 +28,13 @@ setuptools.setup(
     ],
     install_requires=[
         'click >= 7.1.2',
+        'ply >= 3.11',
     ],
     python_requires='>=3.6',
     entry_points={
-        'console_scripts': ['c10tobas=mc10.c10tobas:c10tobas'],
+        'console_scripts': [
+            'c10tobas=mc10.c10tobas:c10tobas',
+            'bastoc10=mc10.bastoc10:bastoc10',
+        ],
     },
 )
