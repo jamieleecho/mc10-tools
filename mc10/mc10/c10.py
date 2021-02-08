@@ -231,7 +231,7 @@ def generate_block_data(data, index, blocktype):
     output += data[index:index + sz]
     checksum = sum(output[1:]) & 0xff
     output.append(checksum)
-    return (output, index + len(data))
+    return (output, index + sz)
 
 
 def generate_interblock_leader():

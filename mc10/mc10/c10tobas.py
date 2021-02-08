@@ -13,7 +13,7 @@ def c10tobas(input_file, output_file):
         program = mcbasic.c10data_to_bas(c10data)
         output_file.write(program)
     except Exception as ex:
-        raise click.ClickException(f'Failed to convert file: {ex.value}')
+        raise click.ClickException(f'Failed to convert file: {str(ex)}')
 
 
 if __name__ == "__main__":

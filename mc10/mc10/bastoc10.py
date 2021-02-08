@@ -12,10 +12,10 @@ def bastoc10(input_file, output_file):
     try:
         filename = os.path.splitext(os.path.basename(output_file.name))[0]
         output = mcbasic.bas_to_c10(input_file.read(),
-                                    filename.encode('iso-8859-1'))
+                                    filename.encode('iso-8859-1').upper())
         output_file.write(output)
     except Exception as ex:
-        raise click.ClickException(f'Failed to tokenize file: {ex.value}')
+        raise click.ClickException(f'Failed to tokenize file: {str(ex)}')
 
 
 if __name__ == "__main__":

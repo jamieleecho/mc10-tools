@@ -210,8 +210,8 @@ BASIC_KEYWORDS = [
     b'*',
     b'/',
     b'^',
-    b'!',
-    b'!',
+    b'AND',
+    b'OR',
     b'>',
     b'=',
 
@@ -463,9 +463,9 @@ def tokenize_bas_line(bas_line, address, line_num):
                 keyword = val
                 rhs = b''
 
-            tokenid = BASIC_KEYWORD_TO_TOKEN[keyword]
-            if tokenid is None:
+            if not keyword in BASIC_KEYWORD_TO_TOKEN:
                 raise Exception(f'{line_num}: {val} is an unknown keyword')
+            tokenid = BASIC_KEYWORD_TO_TOKEN[keyword]
             tokens.append(tokenid)
             tokens += rhs
         elif token.type == 'IDENTIFIER':
@@ -476,7 +476,9 @@ def tokenize_bas_line(bas_line, address, line_num):
             val = val.replace(b'+', bytes((BASIC_KEYWORD_TO_TOKEN[b'+'],)))
             tokens += val
         elif token.type == 'STRING':
-            tokens += val[1:-1] if val[-2] == b'"' else val[1:]
+            tokens += val
+            if (len(val) <= 1 or val[-1] != b'"'[0]):
+                tokens += b'"'
         elif token.type == 'PUNCTUATION':
             tokens += val
         elif token.type == 'SPECIAL':

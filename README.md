@@ -24,6 +24,17 @@ Options:
   --help  Show this message and exit.
 ```
 
+### bastoc10
+```
+Usage: bastoc10 [OPTIONS] INPUT_FILE OUTPUT_FILE
+
+  Tokenizes the given *.bas file specified byt INPUT_FILE, outputing the
+  result into a *.c10 file specified by OUTPUT_FILE.
+
+Options:
+  --help  Show this message and exit.
+```
+
 
 ## Developing and Testing
 ```
