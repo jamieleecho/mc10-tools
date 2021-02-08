@@ -463,7 +463,7 @@ def tokenize_bas_line(bas_line, address, line_num):
                 keyword = val
                 rhs = b''
 
-            if not keyword in BASIC_KEYWORD_TO_TOKEN:
+            if keyword not in BASIC_KEYWORD_TO_TOKEN:
                 raise Exception(f'{line_num}: {val} is an unknown keyword')
             tokenid = BASIC_KEYWORD_TO_TOKEN[keyword]
             tokens.append(tokenid)

@@ -1,8 +1,9 @@
 import click
-from . import c10, mcbasic
+from . import c10, mcbasic, __version__
 
 
 @click.command()
+@click.version_option(__version__)
 @click.argument('input_file', type=click.File('rb'))
 @click.argument('output_file', type=click.File('wb'))
 def c10tobas(input_file, output_file):

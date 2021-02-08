@@ -4,7 +4,10 @@
   "versionFile": "./package.json",
   "files": [{
       "path": "./setup.py",
-      "line": 5
+      "line": 6
+  }, {
+      "path": "mc10/mc10/__init__.py",
+      "line": 2
   }],
   "rules": [{
       "trigger": "manual",
