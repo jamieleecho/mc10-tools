@@ -9,10 +9,10 @@ with open('README.md', 'r', encoding='utf-8') as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name='mc10-tools-jamieleecho',
+    name='mc10-tools',
     version=VERSION,
     author='Jamie Cho',
-    author_email='jamieleecho@gmail.com',
+    author_email='jamieleecho+mc10-tools@gmail.com',
     description='Set of MC-10 tools',
     long_description=long_description,
     long_description_content_type='text/markdown',
