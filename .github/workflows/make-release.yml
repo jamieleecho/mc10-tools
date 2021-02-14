@@ -9,7 +9,6 @@ jobs:
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
-    container: jamieleecho/coco-dev:0.31
     steps:
       - uses: actions/checkout@v1
       - name: Get the tag
