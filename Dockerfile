@@ -1,4 +1,4 @@
-FROM jamieleecho/coco-dev:0.31
+FROM jamieleecho/coco-dev:latest
 MAINTAINER Jamie Cho version: 0.1
 
 # Store stuff in a semi-reasonable spot
