@@ -1,5 +1,4 @@
 FROM jamieleecho/coco-dev:latest
-MAINTAINER Jamie Cho version: 0.1
 
 # Store stuff in a semi-reasonable spot
 RUN mkdir /root/mc10-tools
@@ -11,10 +10,9 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy source files
-COPY setup.py ./
-COPY README.md ./
-COPY tests ./tests
 COPY mc10 ./mc10
+COPY pyproject.toml README.md setup.py ./
+COPY tests ./tests
 
 # Install mc10-tools
 RUN ./setup.py install

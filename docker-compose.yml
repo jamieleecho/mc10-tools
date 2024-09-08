@@ -4,14 +4,16 @@ services:
   test:
     build: .
     command: bash -c "
-        pycodestyle mc10 tests setup.py
-        && pytest --cov=mc10 tests"
+        ruff check && \
+        ruff linter && \
+        pytest --cov=mc10 --cov=tests"
 
   testv:
     build: .
     command: bash -c "
-        pycodestyle mc10 tests setup.py
-        && pytest --cov=mc10 tests"
+        ruff check && \
+        ruff linter && \
+        pytest --cov=mc10 --cov=tests"
     volumes:
     -  .:/root/mc10-tools
 
@@ -24,4 +26,3 @@ services:
     command: bash
     volumes:
     -  .:/root/mc10-tools
-

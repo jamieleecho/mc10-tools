@@ -1,16 +1,16 @@
 name: Make a New Release
 
 on:
-  push:
-    tags:
-      - '*'
+  workflow_dispatch:
 
 jobs:
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@master
+        with:
+          ref: ${{ github.ref }}
       - name: Get the tag
         run: |
           echo "RELEASE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
@@ -30,15 +30,15 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: Set up Python 3.6
+      - name: Set up Python 3.11
         uses: actions/setup-python@v1
         with:
-          python-version: 3.6
+          python-version: 3.11
 
       - name: Build a binary wheel and a source tarball
         run: ./setup.py sdist
 
       - name: Publish distribution to PyPI
-        uses: pypa/gh-action-pypi-publish@master
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
