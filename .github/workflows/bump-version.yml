@@ -18,6 +18,8 @@ jobs:
           node-version: '20'
       - name: Bump Versions
         uses: michmich112/version-bumper@master
+        env:
+          CI: false
         with:
           options-file: './bump-info.json'
           github-token: ${{ secrets.GITHUB_TOKEN }}
