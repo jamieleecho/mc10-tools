@@ -6,7 +6,7 @@
       "path": "./setup.py",
       "line": 6
   }, {
-      "path": "mc10/mc10/__init__.py",
+      "path": "mc10/__init__.py",
       "line": 2
   }],
   "rules": [{
