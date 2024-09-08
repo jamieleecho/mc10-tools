@@ -11,7 +11,7 @@ RUN pip install -r requirements.txt
 
 # Copy source files
 COPY mc10 ./mc10
-COPY pyproject.toml README.md setup.py ./
+COPY pyproject.toml README.md setup.cfg setup.py ./
 COPY tests ./tests
 
 # Install mc10-tools
