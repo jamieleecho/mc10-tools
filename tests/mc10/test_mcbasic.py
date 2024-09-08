@@ -8,8 +8,5 @@ def test_c10data_to_program(all_keywords_file):
 
 
 def test_tokenize_bas():
-    tokens = mcbasic.tokenize_bas(
-        b'10 FORAA=20TO1000STEP3\n'
-        b'20 AA=.232E+3',
-        0x4000)
+    tokens = mcbasic.tokenize_bas(b"10 FORAA=20TO1000STEP3\n" b"20 AA=.232E+3", 0x4000)
     print(tokens)
