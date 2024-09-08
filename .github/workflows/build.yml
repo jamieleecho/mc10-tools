@@ -32,4 +32,4 @@ jobs:
           python3 setup.py install
       - name: Run tests
         run: |
-          pytest --cov=coco --cov=tests
+          pytest --cov=mc10 --cov=tests
