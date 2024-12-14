@@ -41,18 +41,18 @@ Options:
 ## Developing and Testing
 ```
 # Build the docker image
-docker-compose build test
+docker compose build test
 
 # Run tests using the source on the docker image
-docker-compose run test
+docker compose run test
 
 # Run tests using the source on the host computer
-docker-compose run testv
+docker compose run testv
 
 # Run a shell using the source on the docker image
-docker-compose run bash
+docker compose run bash
 
 # Run a shell using the source on the host computer
-docker-compose run bashv
+docker compose run bashv
 
 ```
