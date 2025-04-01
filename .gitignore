@@ -1,138 +1,110 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
 *.py[cod]
-*$py.class
+__pycache__
+node_modules
 
 # C extensions
 *.so
+.DS_Store
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# Packages
 *.egg
-MANIFEST
-
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
 
 # Installer logs
 pip-log.txt
-pip-delete-this-directory.txt
 
 # Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
+coverage
 .coverage
-.coverage.*
-.cache
+.tox
 nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
+htmlcov
 
 # Translations
 *.mo
-*.pot
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
 
-# Flask stuff:
-instance/
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Pycharm/Intellij
+.idea
+
+# Complexity
+output/*.html
+output/*/index.html
+
+# Sphinx
+docs/_build
+
+# JS
 .webassets-cache
+webpack-stats*
+src/schema_browser/media
+webpack-stats-*
 
-# Scrapy stuff:
-.scrapy
+# Vagrant
+Vagrantfile.local
+.vagrant
 
-# Sphinx documentation
-docs/_build/
+# Logs
+production.log
 
-# PyBuilder
-target/
+### Node ###
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Jupyter Notebook
-.ipynb_checkpoints
+# DBs
+db.sqlite3*
+test.db*
 
-# IPython
-profile_default/
-ipython_config.py
+# don't check in NCBI data
+ncbi/
 
-# pyenv
-.python-version
+# compiled static files
 
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
+.*.swp
+Session.vim
+src/db.sqlite3
+src/static
+**/docker-compose.override.yml
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
-
-# vim
-*.swp
-
-# emacs
+# Random Stuff
+.bash*
+cfg/
+.coverage*
+os9boot.dsk
+basic.dsk
+snap/
 *~
-
-# macos
-.DS_Store
+*.tmp
+examples/b09
