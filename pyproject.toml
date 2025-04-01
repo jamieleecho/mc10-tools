@@ -14,8 +14,8 @@ classifiers=[
 ]
 license = "MIT"
 keywords = [
-  "coco",
-  "image",
+  "mc-10",
+  "basic",
   "conversion",
   "trs-80",
   "tandy",
