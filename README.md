@@ -3,8 +3,8 @@
 This is a simple collection of tools to assist with developing software for
 the [TRS-80 Microcolor Computer MC-10](https://en.wikipedia.org/wiki/TRS-80_MC-10).
 
-
 ## Installation
+
 ```bash
 git clone https://github.com/jamieleecho/mc10-tools.git
 cd mc10-tools
@@ -13,8 +13,10 @@ make install
 ```
 
 ## Tools
+
 ### c10tobas
-```
+
+```bash
 Usage: c10tobas [OPTIONS] INPUT_FILE OUTPUT_FILE
 
   Extract and detokenizes the *.bas file in INPUT_FILE and stores it in
@@ -26,7 +28,8 @@ Options:
 ```
 
 ### bastoc10
-```
+
+```bash
 Usage: bastoc10 [OPTIONS] INPUT_FILE OUTPUT_FILE
 
   Tokenizes the given *.bas file specified byt INPUT_FILE, outputing the
@@ -37,12 +40,12 @@ Options:
   --help  Show this message and exit.
 ```
 
-
 ## Developing and Testing
 
 You will need a fairly modern python environment with [uv](https://github.com/astral-sh/uv) installed.
 
 You can begin by entering:
+
 ```bash
 make install-pre-commit
 make sync
@@ -50,6 +53,7 @@ make run-tests
 ```
 
 The `Makefile` makes it easy to perform the most common operations:
+
 * `make check-all` runs linting and `uv.lock` checks
 * `make check-lint` checks for linting issues
 * `make check-lock` verifies the `uv.lock` is aligned to `pyproject.toml`
