@@ -1,5 +1,6 @@
 import click
-from . import c10, mcbasic, __version__
+
+from . import __version__, c10, mcbasic
 
 
 @click.command()
