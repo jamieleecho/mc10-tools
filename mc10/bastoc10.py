@@ -1,6 +1,8 @@
-import click
 import os
-from . import mcbasic, __version__
+
+import click
+
+from . import __version__, mcbasic
 
 
 @click.command()
