@@ -1,7 +1,8 @@
 import re
-from mc10 import c10
-from .mclex import lexer as mclexer
 
+from mc10 import c10
+
+from .mclex import lexer as mclexer
 
 # Maximum line length
 BASIC_MAX_LINE_LEN = 127
@@ -303,12 +304,11 @@ def c10data_to_bas(c10data):
     BASIC program"""
     if c10data.filetype != 0:
         raise Exception(
-            f"{c10data.filename} has a filetype of" f"{c10data.filetype}, expected 0"
+            f"{c10data.filename} has a filetype of{c10data.filetype}, expected 0"
         )
     if c10data.binary_mode != 0:
         raise Exception(
-            f"{c10data.filename} has a binary_mode of"
-            f"{c10data.binary_mode}, expected 0"
+            f"{c10data.filename} has a binary_mode of{c10data.binary_mode}, expected 0"
         )
     if c10data.binary_mode != 0:
         raise Exception(

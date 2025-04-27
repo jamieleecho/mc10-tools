@@ -122,7 +122,7 @@ def read_block(data, ii):
 
     # get the raw data
     if ii + size >= len(data):
-        raise EOFError(f"Found EOF while loading {size} bytes of data at " f"{ii}")
+        raise EOFError(f"Found EOF while loading {size} bytes of data at {ii}")
     data_in_block = data[ii : ii + size]
     ii = ii + size
 

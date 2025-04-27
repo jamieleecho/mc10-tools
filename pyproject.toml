@@ -72,3 +72,6 @@ markers = [
 exclude = [
   "docs/",
 ]
+
+[tool.ruff.lint]
+extend-select = ["I"]

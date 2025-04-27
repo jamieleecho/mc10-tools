@@ -1,7 +1,7 @@
-import pytest
-from mc10 import c10
-
 import conftest
+import pytest
+
+from mc10 import c10
 
 
 def test_c10data():
@@ -128,10 +128,10 @@ def test_c10_path_to_data(basic_c10_data):
 def test_c10_file_to_data_bad_initial_block(basic_c10_file_bad_initial_block):
     with pytest.raises(Exception) as err:
         c10.c10_file_to_data(basic_c10_file_bad_initial_block)
-    assert str(err.value) == "Unexpected block type 5 (expected 0) found at " "133"
+    assert str(err.value) == "Unexpected block type 5 (expected 0) found at 133"
 
 
 def test_c10_file_to_data_bad_block(basic_c10_file_bad_block):
     with pytest.raises(Exception) as err:
         c10.c10_file_to_data(basic_c10_file_bad_block)
-    assert str(err.value) == "Unexpected block type 7 (expected 1) found at " "803"
+    assert str(err.value) == "Unexpected block type 7 (expected 1) found at 803"
