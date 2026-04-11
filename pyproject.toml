@@ -1,6 +1,6 @@
 [project]
 name = "mc10-tools"
-version = "0.9"
+version = "0.10"
 authors = [
   {name = "Jamie Cho", email = "jamieleecho+mc10-tools@gmail.com"},
 ]
