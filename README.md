@@ -54,9 +54,10 @@ make run-tests
 
 The `Makefile` makes it easy to perform the most common operations:
 
-* `make check-all` runs linting and `uv.lock` checks
+* `make check-all` runs linting, type checks, and `uv.lock` checks
 * `make check-lint` checks for linting issues
 * `make check-lock` verifies the `uv.lock` is aligned to `pyproject.toml`
+* `make check-types` runs the `ty` type checker
 * `make clean` cleans the virtual environment and caches
 * `make default` runs a default set of checks on the code
 * `make fix-all` formats the code, fixes lint errors and runs locks `uv.lock` to `pyproject.toml`
@@ -67,7 +68,6 @@ The `Makefile` makes it easy to perform the most common operations:
 * `make install` build install the distribution
 * `make install-pre-commit` installs pre-commit hooks
 * `make lock` locks `uv.lock` to `pyproject.toml`
-* `make install-pre-commit` installs pre-commit hooks
 * `make run-tests` runs the unit tests
 * `make sync` syncs the python environment with `uv.lock`
 

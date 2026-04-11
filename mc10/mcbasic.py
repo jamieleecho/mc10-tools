@@ -296,7 +296,7 @@ BASIC_KEYWORDS = [
 BASIC_KEYWORD_TO_TOKEN = {
     keyword: token for token, keyword in enumerate(BASIC_KEYWORDS)
 }
-BASIC_KEYWORD_TO_TOKEN["!"] = 0x21
+BASIC_KEYWORD_TO_TOKEN[b"!"] = 0x21
 
 
 def c10data_to_bas(c10data):
