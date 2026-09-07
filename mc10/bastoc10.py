@@ -1,4 +1,5 @@
 import os
+from typing import BinaryIO
 
 import click
 
@@ -9,7 +10,7 @@ from . import __version__, mcbasic
 @click.version_option(__version__)
 @click.argument("input_file", type=click.File("rb"))
 @click.argument("output_file", type=click.File("wb"))
-def bastoc10(input_file, output_file):
+def bastoc10(input_file: BinaryIO, output_file: BinaryIO) -> None:
     """Tokenizes the given *.bas file specified byt INPUT_FILE, outputing
     the result into a *.c10 file specified by OUTPUT_FILE."""
     try:

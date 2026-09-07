@@ -4,7 +4,7 @@ import pytest
 from mc10 import c10
 
 
-def test_c10data():
+def test_c10data() -> None:
     filename = b"HELLO"
     start = 0x1234
     load = 0x4321
@@ -24,7 +24,7 @@ def test_c10data():
     assert c10data.continuous_gap_flag == continuous_gap_flag
 
 
-def test_skip_leader():
+def test_skip_leader() -> None:
     data = bytes([0x55, 0x55, 0x55, 0x20, 0x70, 0x55, 0x55])
     assert c10.skip_leader(data, 0) == (3, data[:3], 0x55)
     assert c10.skip_leader(data[3:], 0) == (0, b"", 0x55)
@@ -33,37 +33,39 @@ def test_skip_leader():
     assert str(err.value) == "Found EOF at index 2 in the file"
 
 
-def test_read_block(filename_block):
+def test_read_block(filename_block: bytes) -> None:
     (ii, block_data, block_type) = c10.read_block(filename_block, 0)
     assert ii == len(filename_block)
     assert block_data == filename_block[3:18]
     assert block_type == 0
 
 
-def test_read_block_with_bad_checksum(filename_block_bad_checksum):
+def test_read_block_with_bad_checksum(filename_block_bad_checksum: bytes) -> None:
     with pytest.raises(Exception) as err:
         c10.read_block(filename_block_bad_checksum, 0)
     assert str(err.value) == "Char at 18 is 156, but expecting 155"
 
 
-def test_read_block_with_no_checksum(filename_block_no_checksum):
+def test_read_block_with_no_checksum(filename_block_no_checksum: bytes) -> None:
     with pytest.raises(EOFError) as err:
         c10.read_block(filename_block_no_checksum, 0)
     assert str(err.value) == "Found EOF while loading 15 bytes of data at 3"
 
 
-def test_read_block_bad_block_header(filename_block_bad_block_header):
+def test_read_block_bad_block_header(filename_block_bad_block_header: bytes) -> None:
     with pytest.raises(Exception) as err:
         c10.read_block(filename_block_bad_block_header, 0)
     assert str(err.value) == "Did not find a file header at 0"
 
 
-def test_verify_checksum(filename_block):
+def test_verify_checksum(filename_block: bytes) -> None:
     c10.verify_checksum(filename_block, 2, len(filename_block) - 1)
     c10.verify_checksum(filename_block + b"IGNOREME", 2, len(filename_block) - 1)
 
 
-def test_verify_checksum_with_bad_checksum_1(filename_block_bad_checksum):
+def test_verify_checksum_with_bad_checksum_1(
+    filename_block_bad_checksum: bytes,
+) -> None:
     with pytest.raises(Exception) as err:
         c10.verify_checksum(
             filename_block_bad_checksum, 2, len(filename_block_bad_checksum) - 1
@@ -71,7 +73,7 @@ def test_verify_checksum_with_bad_checksum_1(filename_block_bad_checksum):
     assert str(err.value) == "Char at 18 is 156, but expecting 155"
 
 
-def test_verify_checksum_with_bad_checksum_2(filename_block_no_checksum):
+def test_verify_checksum_with_bad_checksum_2(filename_block_no_checksum: bytes) -> None:
     with pytest.raises(EOFError) as err:
         c10.verify_checksum(
             filename_block_no_checksum, 2, len(filename_block_no_checksum)
@@ -79,7 +81,7 @@ def test_verify_checksum_with_bad_checksum_2(filename_block_no_checksum):
     assert str(err.value) == "Found EOF at char 17 while scanning for checksum"
 
 
-def test_parse_initial_block_data_1(filename_block_data):
+def test_parse_initial_block_data_1(filename_block_data: bytes) -> None:
     (filename, filetype, binary_mode, continuous_gap_flag, start_addr, load_addr) = (
         c10.parse_initial_block_data(filename_block_data)
     )
@@ -91,19 +93,21 @@ def test_parse_initial_block_data_1(filename_block_data):
     assert load_addr == 0x4567
 
 
-def test_parse_initial_block_data_2(filename_block_data):
+def test_parse_initial_block_data_2(filename_block_data: bytes) -> None:
     with pytest.raises(Exception) as err:
         c10.parse_initial_block_data(filename_block_data + b" ")
     assert str(err.value) == "Initial header has the wrong size"
 
 
-def test_parse_initial_block_data_no_filename(filename_block_data_no_filename):
+def test_parse_initial_block_data_no_filename(
+    filename_block_data_no_filename: bytes,
+) -> None:
     with pytest.raises(Exception) as err:
         c10.parse_initial_block_data(filename_block_data_no_filename)
     assert str(err.value) == "No filename specified"
 
 
-def test_c10_file_to_data(basic_c10_file, basic_c10_data):
+def test_c10_file_to_data(basic_c10_file: bytes, basic_c10_data: bytes) -> None:
     data = c10.c10_file_to_data(basic_c10_file)
     assert data.filename == b"BLORK"
     assert data.start_addr == 0x4346
@@ -114,7 +118,7 @@ def test_c10_file_to_data(basic_c10_file, basic_c10_data):
     assert data.data == basic_c10_data
 
 
-def test_c10_path_to_data(basic_c10_data):
+def test_c10_path_to_data(basic_c10_data: bytes) -> None:
     data = c10.c10_path_to_data(conftest.basic_c10_path())
     assert data.filename == b"BLORK"
     assert data.start_addr == 0x4346
@@ -125,13 +129,15 @@ def test_c10_path_to_data(basic_c10_data):
     assert data.data == basic_c10_data
 
 
-def test_c10_file_to_data_bad_initial_block(basic_c10_file_bad_initial_block):
+def test_c10_file_to_data_bad_initial_block(
+    basic_c10_file_bad_initial_block: bytes,
+) -> None:
     with pytest.raises(Exception) as err:
         c10.c10_file_to_data(basic_c10_file_bad_initial_block)
     assert str(err.value) == "Unexpected block type 5 (expected 0) found at 133"
 
 
-def test_c10_file_to_data_bad_block(basic_c10_file_bad_block):
+def test_c10_file_to_data_bad_block(basic_c10_file_bad_block: bytes) -> None:
     with pytest.raises(Exception) as err:
         c10.c10_file_to_data(basic_c10_file_bad_block)
     assert str(err.value) == "Unexpected block type 7 (expected 1) found at 803"
