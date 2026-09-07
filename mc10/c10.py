@@ -1,13 +1,16 @@
+Bytes = bytes | bytearray
+
+
 class C10Data:
     def __init__(
         self,
-        filename,
-        start_addr,
-        load_addr,
-        data,
-        filetype,
-        binary_mode,
-        continuous_gap_flag,
+        filename: Bytes,
+        start_addr: int,
+        load_addr: int,
+        data: Bytes,
+        filetype: int,
+        binary_mode: int,
+        continuous_gap_flag: int,
     ):
         self._filename = filename
         self._start_addr = start_addr
@@ -18,41 +21,41 @@ class C10Data:
         self._continuous_gap_flag = continuous_gap_flag
 
     @property
-    def filename(self):
+    def filename(self) -> Bytes:
         return self._filename
 
     @property
-    def start_addr(self):
+    def start_addr(self) -> int:
         return self._start_addr
 
     @property
-    def load_addr(self):
+    def load_addr(self) -> int:
         return self._load_addr
 
     @property
-    def data(self):
+    def data(self) -> Bytes:
         return self._data
 
     @property
-    def filetype(self):
+    def filetype(self) -> int:
         return self._filetype
 
     @property
-    def binary_mode(self):
+    def binary_mode(self) -> int:
         return self._binary_mode
 
     @property
-    def continuous_gap_flag(self):
+    def continuous_gap_flag(self) -> int:
         return self._continuous_gap_flag
 
 
-def c10_path_to_data(path):
+def c10_path_to_data(path: str) -> C10Data:
     """Given a C10 file path, returns a C10Data object"""
     with open(path, "rb") as f:
         return c10_file_to_data(f.read())
 
 
-def c10_file_to_data(data):
+def c10_file_to_data(data: Bytes) -> C10Data:
     """Given C10 data as a binary string, returns a C10Data object"""
     # strip initial leader
     ii = 0
@@ -97,7 +100,7 @@ def c10_file_to_data(data):
     )
 
 
-def skip_leader(data, ii):
+def skip_leader(data: Bytes, ii: int) -> tuple[int, Bytes, int]:
     """Skips data starting at ii until a non 0x55 char is found. Returns
     (new_ii, datai, 0x55)"""
     start_ii = ii
@@ -108,7 +111,7 @@ def skip_leader(data, ii):
     return (ii, data[start_ii:ii], 0x55)
 
 
-def read_block(data, ii):
+def read_block(data: Bytes, ii: int) -> tuple[int, Bytes, int]:
     """Reads the block of data starting at ii, returns
     (new_ii, data_in_block, block_type)"""
     # find the initial file header
@@ -132,7 +135,7 @@ def read_block(data, ii):
     return (ii + 1, data_in_block, block_type)
 
 
-def verify_checksum(data, start_idx, end_idx):
+def verify_checksum(data: Bytes, start_idx: int, end_idx: int) -> None:
     if end_idx >= len(data):
         raise EOFError(f"Found EOF at char {len(data) - 1} while scanning for checksum")
     checksum = sum(data[ii] for ii in range(start_idx, end_idx)) & 0xFF
@@ -142,7 +145,9 @@ def verify_checksum(data, start_idx, end_idx):
         )
 
 
-def parse_initial_block_data(block_data):
+def parse_initial_block_data(
+    block_data: Bytes,
+) -> tuple[Bytes, int, int, int, int, int]:
     """returns (filename, filetype, binary_mode, continuous_gap_flag,
     start_addr, load_addr)"""
     # find the initial file header
@@ -168,7 +173,7 @@ def parse_initial_block_data(block_data):
     return (filename, filetype, binary_mode, continuous_gap_flag, start_addr, load_addr)
 
 
-def c10data_to_c10file(c10data):
+def c10data_to_c10file(c10data: C10Data) -> bytearray:
     """Creates the corresponding c10 file based on the c10data block"""
     output = bytearray()
 
@@ -195,12 +200,12 @@ def c10data_to_c10file(c10data):
     return output
 
 
-def generate_initial_leader():
+def generate_initial_leader() -> bytes:
     """Generates the initial leader that starts all c10 files"""
     return b"\x55" * 0x80
 
 
-def generate_initial_block_data(c10data):
+def generate_initial_block_data(c10data: C10Data) -> bytearray:
     """Generates the first block leader that starts all c10 files"""
 
     # put in the filename, make sure it is exactly 8 bytes
@@ -226,12 +231,14 @@ def generate_initial_block_data(c10data):
     return generate_block_data(initial_block, 0, 0)[0]
 
 
-def generate_secondary_leader():
+def generate_secondary_leader() -> bytes:
     """Generates the secondary leader after the initial c10 block"""
     return b"\x55" * 0x81
 
 
-def generate_block_data(data, index, blocktype):
+def generate_block_data(
+    data: Bytes, index: int, blocktype: int
+) -> tuple[bytearray, int]:
     """Generates the largest block possible starting at index in data.
     returns (output, new_index) where output is the generated block and
     new_index points to where the next block in data would be extracted"""
@@ -248,11 +255,11 @@ def generate_block_data(data, index, blocktype):
     return (output, index + sz)
 
 
-def generate_interblock_leader():
+def generate_interblock_leader() -> bytes:
     """Generates the leader between normal blocks"""
     return b"\x55" * 0x2
 
 
-def generate_final_block_leader():
+def generate_final_block_leader() -> bytes:
     """Generates the leader between the last normal block and the end block"""
     return b"\x55" * 0x3

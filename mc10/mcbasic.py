@@ -210,7 +210,7 @@ BASIC_KEYWORDS = [
     b"SGN",
     b"INT",
     b"ABS",
-    b"!",
+    b"USR",
     b"RND",
     b"SQR",
     b"LOG",
@@ -299,7 +299,7 @@ BASIC_KEYWORD_TO_TOKEN = {
 BASIC_KEYWORD_TO_TOKEN[b"!"] = 0x21
 
 
-def c10data_to_bas(c10data):
+def c10data_to_bas(c10data: c10.C10Data) -> bytes:
     """Given a C10Data Object, returns a bstring containing the equivalent
     BASIC program"""
     if c10data.filetype != 0:
@@ -358,13 +358,13 @@ def c10data_to_bas(c10data):
     return b"\n".join(ordered_program)
 
 
-def token_to_keyword(token):
+def token_to_keyword(token: int) -> bytes:
     return BASIC_KEYWORDS[token]
 
 
-def parse_string_literal(data, index):
+def parse_string_literal(data: c10.Bytes, index: int) -> tuple[bytes, int]:
     """parses the string literal whose first double quote starts at index,
-    returning (strilit, new_index) where strlit is the string literal
+    returning (strlit, new_index) where strlit is the string literal
     including the starting and trailing double quote if there is one.
     new_index points to the char after the end of the string literal"""
     if index >= len(data):
@@ -387,7 +387,7 @@ def parse_string_literal(data, index):
     return strlit, index + 1
 
 
-def bas_to_c10(program, filename):
+def bas_to_c10(program: bytes, filename: bytes) -> bytearray:
     """given a BASIC program as a byte string, returns the corresponding C10
     file as a byte string"""
     tokenized_program = tokenize_bas(program, BASIC_LOAD_ADDR)
@@ -397,7 +397,7 @@ def bas_to_c10(program, filename):
     return c10.c10data_to_c10file(c10data)
 
 
-def tokenize_bas(program, address):
+def tokenize_bas(program: bytes, address: int) -> bytes:
     """tokenizes program which is an iso-8859-1 byte encoding of an mc-10
     BASIC program so that the program can be stored at address. Returns
     the tokenized program stored as a byte string"""
@@ -413,7 +413,9 @@ def tokenize_bas(program, address):
     return tokens
 
 
-def tokenize_bas_line(bas_line, address, line_num):
+def tokenize_bas_line(
+    bas_line: bytes, address: int, line_num: int
+) -> tuple[c10.Bytes, int]:
     """tokenizes bas_line which is an iso-8859-1 byte encoding of an mc-10
     BASIC program line without the trailing newline character. line_num is
     the line number of bas_line in the file (not the BASIC line number).
@@ -486,7 +488,7 @@ def tokenize_bas_line(bas_line, address, line_num):
     return (tokens, next_address)
 
 
-def normalize_bas_line(bas_line, line_num):
+def normalize_bas_line(bas_line: bytes, line_num: int) -> tuple[bytes, int | None]:
     """canonicalizes bas_line to how the mc-10 would represent the line.
     bas_line is an iso-8859-1 byte encoding without a trailing newline
     character. Returns a pair with a version of bas_line without its
